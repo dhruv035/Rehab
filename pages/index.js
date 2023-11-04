@@ -2,8 +2,9 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { loginUser } from "../frontend-services/auth";
+import { loginUser, verifyToken } from "../frontend-services/auth";
 import { useToast } from "@chakra-ui/react";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {

@@ -23,7 +23,7 @@ export const Purchases = ({ purchases, trunc,fullWidth }) => {
           <div className="text-[30px] text-black font-bold">
             Purchase Orders
           </div>
-          <div className="flex flex-row font-bold text-[20px] text-start self-start">
+          <div className="flex flex-row p-2 font-bold text-[20px] text-start self-start">
             <p className="mr-4 w-[100px]">Date</p>{" "}
             <p className="mr-4 w-[100px]">Amount</p>
             <p className="mr-4 w-[200px]">Items</p>
@@ -36,7 +36,7 @@ export const Purchases = ({ purchases, trunc,fullWidth }) => {
                   <div
                     key={index}
                     onClick={() => handlePurchase(index)}
-                    className=" w-full rounded-[15px] flex flex-row my-2 hover:cursor-pointer text-start hover:bg-gray-100"
+                    className=" w-full rounded-[15px] flex flex-row my-2 p-2 hover:cursor-pointer text-start hover:bg-gray-100"
                   >
                     <div className="w-[100px] mr-4">{item.date}</div>
                     <div className="w-[100px] mr-4">{item.total}</div>
@@ -53,7 +53,7 @@ export const Purchases = ({ purchases, trunc,fullWidth }) => {
                   <div
                     key={index}
                     onClick={() => handlePurchase(index)}
-                    className=" w-full rounded-[15px] flex flex-row my-2 text-start hover:cursor-pointer hover:bg-gray-100"
+                    className=" w-full rounded-[15px] p-2 flex flex-row my-2 text-start hover:cursor-pointer hover:bg-gray-100"
                   >
                     <div className="w-[100px] mr-4">{item.date}</div>
                     <div className="w-[100px] mr-4">{item.total}</div>
