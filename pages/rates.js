@@ -108,7 +108,7 @@ export default function Page() {
             </div>
             <div className="flex flex-col self-center w-max">
               <div className="flex flex-row p-4 mb-10">
-                <p className="w-[16vw] mr-4">Name</p>
+                <p className="w-[20vw] mr-4">Name</p>
                 <p className="w-[16vw] mr-4">Price</p>
               </div>
               {rateList.length > 0 &&
@@ -119,12 +119,12 @@ export default function Page() {
                         key={index}
                         className="flex flex-row my-4 p-4 items-end"
                       >
-                        <p className="w-[16vw] mr-4">{item.name}</p>
+                        <p className="w-[20vw] mr-4">{item.name}</p>
 
                         <p className="w-[16vw] mr-4">{item.price}</p>
 
                         <button
-                          className="bg-emerald-400 w-[120px] px-4 rounded-[10px]"
+                          className="bg-emerald-400 w-[25vw] px-4 rounded-[10px]"
                           onClick={() => {
                             setIsUpdate(true);
                             setUpdateIndex(index);

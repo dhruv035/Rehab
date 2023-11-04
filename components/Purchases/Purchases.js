@@ -24,10 +24,10 @@ export const Purchases = ({ purchases, trunc,fullWidth }) => {
             Purchase Orders
           </div>
           <div className="flex flex-row p-2 font-bold text-[20px] text-start self-start">
-            <p className="mr-4 w-[10vw]">Date</p>
-            <p className="mr-4 w-[10vw]">Amount</p>
-            {trunc!==true&&<p className="mr-4 w-[10vw]">Items</p>}
-            <p className="mr-4 w-[10vw]">Entry By</p>
+            <p className="mr-4 w-[14vw]">Date</p>
+            <p className="mr-4 w-[14vw]">Amount</p>
+            {trunc!==true&&<p className="mr-4 w-[14vw]">Items</p>}
+            <p className="mr-4 w-[14vw]">Entry By</p>
           </div>
           {trunc !== true
             ? purchases.map((item, index) => {
@@ -36,15 +36,15 @@ export const Purchases = ({ purchases, trunc,fullWidth }) => {
                   <div
                     key={index}
                     onClick={() => handlePurchase(index)}
-                    className=" w-full rounded-[15px] flex flex-row my-2 p-2 hover:cursor-pointer text-start hover:bg-gray-100"
+                    className=" w-full rounded-[15px] flex flex-row my-2 p-2 hover:cursor-pointer text-start bg-white border-[1px] border-blue-800 hover:bg-gray-100"
                   >
-                    <div className="w-[10vw] mr-4">{item.date}</div>
-                    <div className="w-[10vw] mr-4">{item.total}</div>
-                    <div className="w-[10vw] mr-4">{item.items.map((data,index)=>{
+                    <div className="w-[14vw] mr-4">{item.date}</div>
+                    <div className="w-[14vw] mr-4">{item.total}</div>
+                    <div className="w-[14vw] mr-4">{item.items.map((data,index)=>{
                         console.log("DATAAA",data,index)
                         return (<p key={index}>{data.name+"(@"+data.amount+")"}</p>)
                     })}</div>
-                     <div className="w-[100px] mr-4">{item.entryBy}</div>
+                     <div className="w-[14vw] mr-4">{item.entryBy}</div>
                   </div>
                 );
               })
@@ -55,12 +55,16 @@ export const Purchases = ({ purchases, trunc,fullWidth }) => {
                     onClick={() => handlePurchase(index)}
                     className=" w-full rounded-[15px] p-2 flex flex-row my-2 text-start hover:cursor-pointer hover:bg-gray-100"
                   >
-                    <div className="w-[10vw] mr-4">{item.date}</div>
-                    <div className="w-[10vw] mr-4">{item.total}</div>
-                    <div className="w-[10vw] mr-4">{item.entryBy}</div>
+                    <div className="w-[14vw] mr-4">{item.date}</div>
+                    <div className="w-[14vw] mr-4">{item.total}</div>
+                    <div className="w-[14vw] mr-4">{item.entryBy}</div>
+                    <div className="underline bold text-blue-950">
+                    View Details
+                    </div>
                   </div>
                 );
               })}
+              
         </div>
       ) : (
         "No Purchases"
