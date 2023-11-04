@@ -7,14 +7,10 @@ import { useToast } from "@chakra-ui/react";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState();
+  const [username, setUsername] = useState();
   const toast = useToast();
   const router = useRouter();
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken")
-    if (token.length>0) console.log("Token",token)
-  }, []);
 
   const handleLogin = async () => {
     const data = await loginUser(username,password)
@@ -42,6 +38,21 @@ export default function Home() {
       })
     }
   };
+  const initialise = async () => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) return;
+    if (token.length) {
+      const checkData = await verifyToken(token);
+      if (checkData.status === 200) {
+        router.push("/dashboard")
+      }
+    } 
+  };
+
+  useEffect(() => {
+    initialise();
+  }, []);
+
   return (
     <div className="flex flex-col items-center">
       <div className="mt-10">
