@@ -83,7 +83,7 @@ export default function Home() {
     <div className="flex flex-col">
       <NavBar />
       <div className="flex flex-col items-center">
-        <div className="flex flex-row">
+        <div className="flex flex-col sm:flex-row ">
           <Rates rates={rateList} />
           <div>
             <div>

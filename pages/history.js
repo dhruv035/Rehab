@@ -80,9 +80,9 @@ export default function Home() {
   };
   console.log("PURCHASES", purchases);
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full">
       <NavBar />
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col w-full items-center">
         
         
               <Purchases purchases={purchases} fullWidth={true}/>
