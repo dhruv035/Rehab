@@ -95,7 +95,7 @@ export default function Page() {
     <div className="flex flex-col">
       <NavBar />
       <div className="flex flex-col mt-10 items-center">
-        <div className="flex flex-col items-center mt-10 w-[80%]">
+        <div className="flex flex-col items-center mt-10 w-[full]">
           <button
             className="w-[150px] h-[30px] rounded-[15px] px-4 bg-green-400"
             onClick={() => setOpen(true)}
@@ -108,8 +108,8 @@ export default function Page() {
             </div>
             <div className="flex flex-col self-center w-max">
               <div className="flex flex-row p-4 mb-10">
-                <p className="w-[200px] mr-4">Name</p>
-                <p className="w-[200px] mr-4">Price</p>
+                <p className="w-[16vw] mr-4">Name</p>
+                <p className="w-[16vw] mr-4">Price</p>
               </div>
               {rateList.length > 0 &&
                 rateList.map((item, index) => {
@@ -119,9 +119,9 @@ export default function Page() {
                         key={index}
                         className="flex flex-row my-4 p-4 items-end"
                       >
-                        <p className="w-[200px] mr-4">{item.name}</p>
+                        <p className="w-[16vw] mr-4">{item.name}</p>
 
-                        <p className="w-[200px] mr-4">{item.price}</p>
+                        <p className="w-[16vw] mr-4">{item.price}</p>
 
                         <button
                           className="bg-emerald-400 w-[120px] px-4 rounded-[10px]"
@@ -142,7 +142,7 @@ export default function Page() {
                         key={index}
                         className="flex flex-row p-4 w-full rounded-[20px] border-[1px] border-blue-700 items-center bg-white"
                       >
-                        <div className="flex self-center py-2 mr-4 flex-col">
+                        <div className="flex self-center py-2 w-[16vw] mr-4 flex-col">
                           <sup className="">Name: {item.name}</sup>
                           <input
                             value={newName}
@@ -151,7 +151,7 @@ export default function Page() {
                             placeholder="Enter New Name..."
                           ></input>
                         </div>
-                        <div className="flex self-center py-2 mr-4 flex-col">
+                        <div className="flex self-center py-2 w-[16vw] mr-4 flex-col">
                           <sup className="">Price: {item.price}</sup>
                           <input
                             type="number"
@@ -163,7 +163,7 @@ export default function Page() {
                         </div>
                         <div>
                           <button
-                            className="rounded-[24px] mx-2 my-2 w-[100px] bg-gray-100"
+                            className="rounded-[24px] mx-2 my-2 p-2  bg-gray-100"
                             onClick={() => {
                               setIsUpdate(false);
                               setUpdateIndex(-1);
@@ -172,7 +172,7 @@ export default function Page() {
                             Cancel
                           </button>
                           <button
-                            className="rounded-[24px] mx-2 my-2 w-[100px] bg-green-400"
+                            className="rounded-[24px] mx-2 my-2 p-2 bg-green-400"
                             onClick={() => {
                               handleUpdate();
                             }}

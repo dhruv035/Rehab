@@ -24,10 +24,10 @@ export const Purchases = ({ purchases, trunc,fullWidth }) => {
             Purchase Orders
           </div>
           <div className="flex flex-row p-2 font-bold text-[20px] text-start self-start">
-            <p className="mr-4 w-[10vwpx]">Date</p>
-            <p className="mr-4 w-[10vwpx]">Amount</p>
+            <p className="mr-4 w-[10vw]">Date</p>
+            <p className="mr-4 w-[10vw]">Amount</p>
             {trunc!==true&&<p className="mr-4 w-[10vw]">Items</p>}
-            <p className="mr-4 w-[10vwpx]">Entry By</p>
+            <p className="mr-4 w-[10vw]">Entry By</p>
           </div>
           {trunc !== true
             ? purchases.map((item, index) => {
