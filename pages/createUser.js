@@ -16,6 +16,7 @@ export default function Home() {
        const data =await createUser(username,password);
        if(data.status===200)
       {
+        localStorage.setItem("accessToken","")
         router.push("/")
       }
     }
