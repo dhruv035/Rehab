@@ -12,7 +12,7 @@ export const Purchases = ({ purchases, trunc,fullWidth }) => {
   const router = useRouter();
 
   const handlePurchase = (index) => {
-    router.push("/purchase/" + purchases[index]._id);
+    router.replace("/purchase/" + purchases[index]._id);
   };
   return (
     <div className="flex w-full justify-center">

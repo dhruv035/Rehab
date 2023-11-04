@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
-import { verifyToken } from "@/frontend-services/auth";
+import { verifyToken } from "../../frontend-services/auth";
 import { NavBar } from "@/components/Navbar/NavBar";
 import { getPurchase,updatePurchase } from "@/frontend-services/purchases";
 
@@ -20,9 +20,12 @@ export default function Home() {
     const token = localStorage.getItem("accessToken");
     if (!token) return;
     if (token.length) {
+        console.log("TRYING THIS",token)
       const checkData = await verifyToken(token);
+      console.log("CHECKEDDATA",checkData,checkData.status)
       if (checkData.status === 200) {
         setAccessToken(token);
+        console.log("HEREAA")
       } else {
         router.push("/");
       }
