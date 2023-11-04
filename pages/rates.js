@@ -1,6 +1,6 @@
 import { NavBar } from "@/components/Navbar/NavBar";
 import { updateRate, getRates } from "@/frontend-services/rates";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { verifyToken } from "@/frontend-services/auth";
 import { useToast } from "@chakra-ui/react";
 import {
@@ -14,7 +14,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import Inventory from "@/components/Inventory/inventory";
-const ratesPage = () => {
+export default function Page() {
   const toast = useToast();
   const [newName, setNewName] = useState("");
   const [open, setOpen] = useState(false);
@@ -103,84 +103,87 @@ const ratesPage = () => {
             Add New Items
           </button>
           <div className="flex flex-col mt-10 bg-gray-300 p-4 rounded-[20px] min-w-[60%]">
-            
-            <div className="text-center text-[50px] font-bold mb-4">Rate List</div>
-            <div className="flex flex-col self-center w-max">
-            <div className="flex flex-row p-4 mb-10">
-              <p className="w-[200px] mr-4">Name</p>
-              <p className="w-[200px] mr-4">Price</p>
+            <div className="text-center text-[50px] font-bold mb-4">
+              Rate List
             </div>
-            {rateList.length > 0 &&
-              rateList.map((item, index) => {
-                if (index !== updateIndex || !isUpdate)
-                  return (
-                    <div key={index} className="flex flex-row my-4 p-4 items-end">
-                     
-                        <p className="w-[200px] mr-4">{item.name}</p>
-                     
-
-                      
-                        <p className="w-[200px] mr-4">{item.price}</p>
-                      
-
-                      <button
-                        className="bg-emerald-400 w-[120px] px-4 rounded-[10px]"
-                        onClick={() => {
-                          setIsUpdate(true);
-                          setUpdateIndex(index);
-                          setNewPrice(item.price);
-                          setNewName(item.name);
-                        }}
+            <div className="flex flex-col self-center w-max">
+              <div className="flex flex-row p-4 mb-10">
+                <p className="w-[200px] mr-4">Name</p>
+                <p className="w-[200px] mr-4">Price</p>
+              </div>
+              {rateList.length > 0 &&
+                rateList.map((item, index) => {
+                  if (index !== updateIndex || !isUpdate)
+                    return (
+                      <div
+                        key={index}
+                        className="flex flex-row my-4 p-4 items-end"
                       >
-                        Update
-                      </button>
-                    </div>
-                  );
-                else
-                  return (
-                    <div key={index} className="flex flex-row p-4 w-full rounded-[20px] border-[1px] border-blue-700 items-center bg-white">
-                      <div className="flex self-center py-2 mr-4 flex-col">
-                        <sup className="">Name: {item.name}</sup>
-                        <input
-                          value={newName}
-                          className="my-2 border-[2px] px-2  max-w-[250px] border-blue-200 rounded-[5px]"
-                          onChange={(e) => setNewName(e.currentTarget.value)}
-                          placeholder="Enter New Name..."
-                        ></input>
-                      </div>
-                      <div className="flex self-center py-2 mr-4 flex-col">
-                        <sup className="">Price: {item.price}</sup>
-                        <input
-                          type="number"
-                          className="my-2 border-[2px] px-2 max-w-[250px] border-blue-200 rounded-[5px]"
-                          value={newPrice}
-                          onChange={(e) => setNewPrice(e.currentTarget.value)}
-                          placeholder="Enter New Price..."
-                        ></input>
-                      </div>
-                      <div>
+                        <p className="w-[200px] mr-4">{item.name}</p>
+
+                        <p className="w-[200px] mr-4">{item.price}</p>
+
                         <button
-                          className="rounded-[24px] mx-2 my-2 w-[100px] bg-gray-100"
+                          className="bg-emerald-400 w-[120px] px-4 rounded-[10px]"
                           onClick={() => {
-                            setIsUpdate(false);
-                            setUpdateIndex(-1);
-                          }}
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          className="rounded-[24px] mx-2 my-2 w-[100px] bg-green-400"
-                          onClick={() => {
-                            handleUpdate();
+                            setIsUpdate(true);
+                            setUpdateIndex(index);
+                            setNewPrice(item.price);
+                            setNewName(item.name);
                           }}
                         >
                           Update
                         </button>
                       </div>
-                    </div>
-                  );
-              })}
-              </div>
+                    );
+                  else
+                    return (
+                      <div
+                        key={index}
+                        className="flex flex-row p-4 w-full rounded-[20px] border-[1px] border-blue-700 items-center bg-white"
+                      >
+                        <div className="flex self-center py-2 mr-4 flex-col">
+                          <sup className="">Name: {item.name}</sup>
+                          <input
+                            value={newName}
+                            className="my-2 border-[2px] px-2  max-w-[250px] border-blue-200 rounded-[5px]"
+                            onChange={(e) => setNewName(e.currentTarget.value)}
+                            placeholder="Enter New Name..."
+                          ></input>
+                        </div>
+                        <div className="flex self-center py-2 mr-4 flex-col">
+                          <sup className="">Price: {item.price}</sup>
+                          <input
+                            type="number"
+                            className="my-2 border-[2px] px-2 max-w-[250px] border-blue-200 rounded-[5px]"
+                            value={newPrice}
+                            onChange={(e) => setNewPrice(e.currentTarget.value)}
+                            placeholder="Enter New Price..."
+                          ></input>
+                        </div>
+                        <div>
+                          <button
+                            className="rounded-[24px] mx-2 my-2 w-[100px] bg-gray-100"
+                            onClick={() => {
+                              setIsUpdate(false);
+                              setUpdateIndex(-1);
+                            }}
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            className="rounded-[24px] mx-2 my-2 w-[100px] bg-green-400"
+                            onClick={() => {
+                              handleUpdate();
+                            }}
+                          >
+                            Update
+                          </button>
+                        </div>
+                      </div>
+                    );
+                })}
+            </div>
           </div>
         </div>
       </div>
@@ -203,4 +206,3 @@ const ratesPage = () => {
     </div>
   );
 };
-export default ratesPage;

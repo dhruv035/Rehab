@@ -42,7 +42,7 @@ export const Purchases = ({ purchases, trunc,fullWidth }) => {
                     <div className="w-[100px] mr-4">{item.total}</div>
                     <div className="w-[200px] mr-4">{item.items.map((data,index)=>{
                         console.log("DATAAA",data,index)
-                        return (<p>{data.name+"(@"+data.amount+")"}</p>)
+                        return (<p key={index}>{data.name+"(@"+data.amount+")"}</p>)
                     })}</div>
                      <div className="w-[100px] mr-4">{item.entryBy}</div>
                   </div>
