@@ -124,42 +124,87 @@ export default function Home() {
               return (
                 <div
                   key={index}
-                  className=" my-4 flex border-[1px] border-blue-600 items-center bg-white py-2 px-4 rounded-[10px] w-full justify-center"
+                  className=" my-4 flex border-[1px] border-blue-600 items-center bg-white py-2 px-[2vw] md:px-4 rounded-[10px] w-full justify-center"
                 >
+                 <table>
+                  <thead className="text-[3vw] text-left font-bold md:text-[18px]">
+                  <tr>
+                    <th>
+                      Name
+                    </th>
+                    <th>
+                      Price
+                    </th>
+                    <th>
+                      Qty
+                    </th>
+                    <th>
+                      Amount
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody className="text-[2.5vw]  md:text-[16px] text-left">
+                    <tr>
+                      <th className="pr-[2vw]">{item.name}</th>
+                      <th>
+                      <input
+                      type="number"
+                      value={newPrice}
+                      onChange={(e) => setNewPrice(e.currentTarget.value)}
+                      className="border-1 bg-gray-100  mr-[2vw] p-[1vw] w-[10vw]"
+                    />
+                      </th>
+                      <th>
+                      <input
+                      type="number"
+                      value={newQuant}
+                      onChange={(e) => setNewQuant(e.currentTarget.value)}
+                      className="border-1 bg-gray-100 mr-[2vw] p-[1vw] w-[8vw]"
+                    />
+                      </th>
+                      <th>
+                      {newPrice * newQuant}
+                      </th>
+                    </tr>
+                  </tbody>
+                 </table>
+                 {/*<div>
                   <div className="flex flex-col">
                     <p>
                       <sup className="">Name</sup>
                     </p>
-                    <p className="mr-10 w-[6vw] max-w-full">{item.name}</p>
+                    <p className="mr-[3vw] md:mr-10 w-[6vw] max-w-full">{item.name}</p>
                   </div>
-                  <div className="flex flex-col mx-2">
+                  <div className="flex flex-col mx-[1vw] md:mx-2">
                     <p>
-                      <sup className="p-2">Price</sup>
+                      <sup className="">Price</sup>
                     </p>
                     <input
                       value={newPrice}
                       onChange={(e) => setNewPrice(e.currentTarget.value)}
-                      className="border-1 bg-gray-100 p-2 w-[14vw]"
+                      className="border-1 bg-gray-100 p-2 w-[12vw]"
                     />
                   </div>
                   <div className="flex flex-col mx-2">
                     <p>
-                      <sup className="p-2">Quantity</sup>
+                      <sup className="">Qty</sup>
                     </p>
                     <input
                       value={newQuant}
                       onChange={(e) => setNewQuant(e.currentTarget.value)}
-                      className="border-1 bg-gray-100 p-2 w-[14vw]"
+                      className="border-1 bg-gray-100 p-2 w-[10vw]"
                     />
                   </div>
                   <div>
                     <p>
                       <sup className="p-2">Amount</sup>
                     </p>
-                    <p className="w-[100px] p-2">{newPrice * newQuant}</p>
+                    <p className="w-[12vw] text-[3.5vw] md:text-[16px] md:w-[100px] p-2">{newPrice * newQuant}</p>
                   </div>
+                   */}
+                   <div className="flex flex-row px-[2vw] text-[3vw] md:text-16px">
                   <button
-                    className="mr-4 w-[14vw] p-2 rounded-[20px] bg-green-500"
+                    className="mr-[2vw] md:mr-4 h-max=w-[14vw] p-2 rounded-[20px] bg-green-500"
                     onClick={() => {
                       updateToDB();
                     
@@ -167,6 +212,7 @@ export default function Home() {
                   >
                     Update
                   </button>
+                  
                   <button
                     className=" w-[14vw] p-2 rounded-[20px] bg-gray-500"
                     onClick={() => {
@@ -176,6 +222,7 @@ export default function Home() {
                   >
                     Cancel
                   </button>
+                  </div>
                 </div>
               );
           })}
