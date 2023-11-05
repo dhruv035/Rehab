@@ -17,12 +17,12 @@ export const NavBar = () => {
 
   return (
     <>
-      <div className="flex flex-row bg-amber-400 w-full h-[70px] justify-center items-center">
+      <div className="flex flex-row bg-amber-400 w-full h-[10vh] justify-center items-center">
         {Object.keys(menu).map((item, index) => {
           return (
             <div
               key={index}
-              className="px-4 hover:cursor-pointer border-r-[1px] border-black"
+              className="px-[2vw] hover:cursor-pointer border-r-[1px] border-black font-bold text-[4.5vw] md:text-[40px]"
               onClick={() => {
                 router.push(menu[item]);
               }}

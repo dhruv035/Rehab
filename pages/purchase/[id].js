@@ -64,28 +64,28 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <NavBar />
-      <div className="flex flex-col my-4 bg-gray-200 w-full self-center items-center p-4 rounded-[10px]">
-        <p className="font-bold text-[24px] text-center text-amber-800">
+      <div className="flex flex-col my-4 bg-gray-200 self-center items-center p-[3.5vw] md:p-4 max-w-[100%] rounded-[10px]">
+        <p className="font-bold text-[5.5vw] md:text-[24px] text-center text-amber-800">
           Order Details
         </p>
-        <div className="flex flex-col items-start">
-        <div className="flex flex-row font-bold justify-center self-start text-[16px] mt-4 ">
-          <p className="mr-10 w-[12vw]">Item Name</p>{" "}
+        <div className="flex flex-col items-start max-w-[100%]">
+        <div className="flex flex-row max-w-[100%] font-bold justify-center self-start text-[3.2vw] md:text-[16px] mt-4 ">
+          <p className="mr-[2vw] md:mr-10 w-[12vw]">Item Name</p>{" "}
           <p className="w-[14vw] mr-1">Price</p>
-          <p className="w-[14vw] mr-1">Quantity</p>
+          <p className="w-[14vw] mr-1">Qty</p>
           <p className="w-[14vw] mr-1">Amount</p>
         </div>
         {purchase?.items?.length > 0 &&
           purchase.items.map((item, index) => {
             if (index !== updateIndex)
               return (
-                <div key={index} className=" my-4 flex flex-row justify-center">
-                  <p className="mr-10 w-[12vw]">{item.name}</p>
+                <div key={index} className=" my-4 max-w-[100%] text-[3vw] md:text-[14px] flex flex-row justify-center">
+                  <p className="mr-[2vw] md:mr-10 w-[12vw]">{item.name}</p>
                   <p className="w-[14vw] mr-1">{item.price}</p>
                   <p className="w-[14vw] mr-1">{item.quantity}</p>
                   <p className="w-[14vw] mr-1">{item.amount}</p>
                   <button
-                    className="bg-blue-500 p-2 rounded-[20px] sm:w-[10vw]"
+                    className="bg-blue-500 p-2 rounded-[20px] md:text-16px text-[2vw] w-[14vw] md:w-[10vw]"
                     onClick={() => {
                       setIsUpdate(true);
                       setUpdateIndex(index);
@@ -156,7 +156,8 @@ export default function Home() {
                 </div>
               );
           })}
-        <div className="mt-6 self-end mr-14 text-black font-bold w-[120px] h-[50px]">
+        <div className="mt-6 self-end text-[3vw] md:text-[16px] mr-[2vw] md:mr-14 text-black font-bold
+       md:w-[120px] h-[50px]">
           Total: {purchase.total}
         </div>
         </div>

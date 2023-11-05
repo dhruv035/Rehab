@@ -14,7 +14,7 @@ import {
   ModalFooter,
   Button,
 } from "@chakra-ui/react";
-import BillGenerator from "@/components/Bill/BillGenerate";
+import BillGenerator from "@/components/Purchases/BillGenerate";
 import { getPurchases } from "../frontend-services/purchases";
 import { Rates } from "@/components/Rates/Rates";
 import { getRates } from "@/frontend-services/rates";
@@ -83,7 +83,7 @@ export default function Home() {
     <div className="flex flex-col">
       <NavBar />
       <div className="flex flex-col items-center">
-        <div className="flex flex-col sm:flex-row ">
+        <div className=" w-full md:w-auto flex flex-col md:flex-row ">
           <Rates rates={rateList} />
           <div>
             <div>

@@ -1,6 +1,6 @@
 import { NavBar } from "@/components/Navbar/NavBar";
 import { updateRate, getRates } from "@/frontend-services/rates";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { verifyToken } from "@/frontend-services/auth";
 import { useToast } from "@chakra-ui/react";
 import {
@@ -13,9 +13,14 @@ import {
   ModalFooter,
   Button,
 } from "@chakra-ui/react";
-import Inventory from "@/components/Inventory/inventory";
+import useDimensions from "@/components/hooks/useDimensions";
+import RateList from "@/components/Rates/RateList";
 export default function Page() {
   const toast = useToast();
+  const dimensions = useDimensions();
+  const isMobile = useMemo(() => {
+    return dimensions.width <= 768;
+  }, [dimensions]);
   const [newName, setNewName] = useState("");
   const [open, setOpen] = useState(false);
   const [accessToken, setAccessToken] = useState("");
@@ -27,6 +32,7 @@ export default function Page() {
     fetchRates();
   }, [accessToken]);
 
+  console.log("isMobile", isMobile)
   const fetchRates = async () => {
     if (!accessToken) return;
     const rateListData = await getRates(accessToken);
@@ -124,7 +130,7 @@ export default function Page() {
                         <p className="w-[16vw] mr-4">{item.price}</p>
 
                         <button
-                          className="bg-emerald-400 w-[25vw] px-4 rounded-[10px]"
+                          className="bg-emerald-400 w-[25vw] max-w-[140px] px-4 rounded-[10px]"
                           onClick={() => {
                             setIsUpdate(true);
                             setUpdateIndex(index);
@@ -140,16 +146,17 @@ export default function Page() {
                     return (
                       <div
                         key={index}
-                        className="flex flex-row p-4 w-full rounded-[20px] border-[1px] border-blue-700 items-center bg-white"
+                        className="flex flex-row p-4 w-full text-[3vw] md:text-[16px] rounded-[20px] border-[1px] border-blue-700 items-center bg-white"
                       >
-                        <div className="flex self-center py-2 w-[16vw] mr-4 flex-col">
-                          <sup className="">Name: {item.name}</sup>
+                        <div className="flex self-center py-2  w-[16vw] mr-4 flex-col">
+                          <sup className="">{isMobile?"":"Name:"} {item.name}</sup>
                           <input
                             value={newName}
                             className="my-2 border-[2px] px-2  max-w-[250px] border-blue-200 rounded-[5px]"
                             onChange={(e) => setNewName(e.currentTarget.value)}
                             placeholder="Enter New Name..."
                           ></input>
+                           
                         </div>
                         <div className="flex self-center py-2 w-[16vw] mr-4 flex-col">
                           <sup className="">Price: {item.price}</sup>
@@ -172,6 +179,7 @@ export default function Page() {
                             Cancel
                           </button>
                           <button
+                            
                             className="rounded-[24px] mx-2 my-2 p-2 bg-green-400"
                             onClick={() => {
                               handleUpdate();
@@ -193,7 +201,7 @@ export default function Page() {
           <ModalHeader>Add Items</ModalHeader>
           <ModalCloseButton />
           <ModalBody className="flex justify-center">
-            <Inventory fetchData={fetchRates} accessToken={accessToken} />
+            <RateList fetchData={fetchRates} accessToken={accessToken} />
           </ModalBody>
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={onClose}>
@@ -205,4 +213,4 @@ export default function Page() {
       </Modal>
     </div>
   );
-};
+}
