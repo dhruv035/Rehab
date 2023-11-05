@@ -17,7 +17,7 @@ export const Purchases = ({ purchases, trunc, fullWidth }) => {
   return (
     <div className="flex justify-center">
       {purchases?.length > 0 ? (
-        <div className="flex flex-col py-2 px-4 mx-2 my-2 bg-gray-400  md:min-w-[768px] items-center self-center rounded-[10px] max-w-[95%]">
+        <div className="flex flex-col py-2 px-4 mx-2 my-2 bg-gray-400  items-center self-center rounded-[10px] w-[90%]">
           <div className=" text-[5.5vw] md:text-[30px] text-black text-center font-bold">
             Purchase Orders
           </div>

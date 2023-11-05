@@ -82,8 +82,8 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <NavBar />
-      <div className="flex flex-col items-center">
-        <div className=" w-full md:w-auto flex flex-col md:flex-row ">
+      <div className="flex flex-col max-w-[100%] items-center">
+        <div className=" w-full max-w-[100%] md:w-auto flex flex-col md:flex-row ">
           <Rates rates={rateList} />
           <div>
             <div>

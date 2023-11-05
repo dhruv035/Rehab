@@ -7,10 +7,10 @@ const inter = Inter({ subsets: ["latin"] });
 export const Rates = ({ rates }) => {
   console.log("RATES", rates);
   return (
-    <div>
+    <div className="flex max-w-[100%] flex-col items-center">
       {rates?.length > 0 ? (
-        <div className="flex flex-col p-2 mx-2 my-16 md:my-2 bg-gray-400 items-center  rounded-[10px]">
-          <div className="flex flex-row-reverse">
+        <div className="flex flex-col p-2 mx-2 w-[90%] my-16 md:my-2 bg-gray-400 items-center rounded-[10px]">
+          <div className="flex flex-row-reverse w-[90%]">
           <div className="">
               <SettingsIcon
                 className="border-1 mx-4 rounded-[5px] mt-4 w-[100px] hover:cursor-pointer"
