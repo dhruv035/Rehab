@@ -31,12 +31,11 @@ export default async function handler(req, res) {
             quantity: item.quantity,
             price: data.price,
             amount: item.quantity * data.price,
-            editedBy: username + "@Creator",
           };
           resolve({
             ...items,
 
-            history: [items],
+            history: [],
           });
         });
       })
@@ -44,7 +43,7 @@ export default async function handler(req, res) {
 
     const update = await db
       .collection("Purchase")
-      .insertOne({ date: date, items: entries, total: total }, (err, res) => {
+      .insertOne({ date: date, items: entries, total: total,createdBy:username }, (err, res) => {
         if (err) throw err;
         return res;
       });

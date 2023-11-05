@@ -79,6 +79,18 @@ const BillGenerator = ({ accessToken, fetchPurchases }) => {
     }
   };
   console.log("ITEMS", items);
+
+  const handleEdit = () => {
+    const itemsArray = items;
+    itemsArray[orderIndex].quantity = quantity;
+    setItems([...itemsArray]);
+    editClose();
+  };
+  const editClose = () => {
+    setOrderIndex(-1);
+    setIsEdit(false);
+    setQuantity("")
+  };
   return (
     <>
       <div className="flex flex-col w-[100%]">
@@ -99,22 +111,19 @@ const BillGenerator = ({ accessToken, fetchPurchases }) => {
                 return (
                   <div
                     key={index}
-                    className="my-[1vw] h-[10vw] md:h-[6vw] flex flex-row bg-white items-center justify-center shadow-sm hover:shadow-[0 0.5em 0.5em -0.4em] hover:translate-y-[-2px] w-[98%] max-w-[100%]"
+                    className="my-[1vw] text-[3.5vw] md:text-[16px] px-2 h-[10vw] md:h-[6vw] rounded-[10px] border-[2px] border-blue-800  flex flex-row bg-white items-center justify-center shadow-sm hover:shadow-[0 0.5em 0.5em -0.4em] hover:translate-y-[-2px] w-[98%] max-w-[100%]"
                   >
-                    <p className="w-[24vw] text-[3.5vw] md:text-[16px] mr-[2vw] md:mr-10 md:w-[200px]">
+                    <p className="w-[24vw]  mr-[2vw] md:mr-10 md:w-[200px]">
                       {item.name}
                     </p>
-                    <p className="w-[24vw] text-[3.5vw] md:text-[16px] md:w-[100px]">
-                      {item.price}
-                    </p>
-                    <p className="w-[24vw] text-[3.5vw] md:text-[16px] md:w-[100px]">
-                      {item.quantity}
-                    </p>
+                    <p className="w-[24vw]  md:w-[100px]">{item.price}</p>
+                    <p className="w-[24vw]  md:w-[100px]">{item.quantity}</p>
                     {isEdit === false && (
                       <div
                         onClick={() => {
                           setIsEdit(true);
                           setOrderIndex(index);
+                          setQuantity(items[index].quantity);
                         }}
                       >
                         <EditIcon />
@@ -124,51 +133,65 @@ const BillGenerator = ({ accessToken, fetchPurchases }) => {
                 );
               } else {
                 return (
-                  <div
-                    key={index}
-                    className="flex flex-row p-4 w-full text-[3vw] md:text-[16px] rounded-[20px] border-[1px] border-blue-700 items-center bg-white"
-                  >
-                    <div className="flex self-center py-2  w-[16vw] mr-4 flex-col">
-                      <sup className="">{isMobile?"":"Name:"} {item.name}</sup>
-                      <textarea
-                        value={newName}
-                        rows={2}
-                        
-                        className="my-2 border-[2px] px-1 md:h-auto max-w-[250px] border-blue-200 rounded-[5px]"
-                        onChange={(e) => setNewName(e.currentTarget.value)}
-                        placeholder="New Name..."
-                      ></textarea>
-                       
+                  <div key={index} className="flex flex-col text-[3vw] md:text-[16px] py-4 bg-gray-400 h rounded-[10px] border-[4px] w-[98%] border-blue-800">
+                    <div
+                      
+                      className="flex flex-row px-2 h-[14vw] bg-red-200 md:h-[6vw] bg-white text-gray items-center justify-center w-full max-w-[100%]"
+                    >
+                      <p className="w-[24vw]  mr-[2vw] md:mr-10 md:w-[200px]">
+                        {item.name}
+                      </p>
+                      <p className="w-[24vw]  md:w-[100px]">{item.price}</p>
+                      <p className="w-[24vw]  md:w-[100px]">{item.quantity}</p>
                     </div>
-                    <div className="flex self-center py-2 w-[16vw] mr-4 flex-col">
-                      <sup className="">Price: {item.price}</sup>
+                    <div className="flex flex-row justify-start bg-green-300 md:text-[16px] h-[10vw] md:h-[6vw]  bg-sky-100 w-full  items-center shadow-[0 0.5em 0.5em -0.4em] w-[98%] max-w-[100%]">
+                      <div className="px-2 items-center flex flex-row-reverse w-full">                 
+
+                          <button
+                            className="ml-[2vw] border-[1px] text-gray bg-gray-100 text-[2.5vw] md:text-[16px] rounded-[15px] w-[12vw] md:w-[100px] hover:cursor-pointer"
+                            
+                            onClick={() => {
+                              editClose();
+                            }}
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            className="ml-[2vw] border-[1px] text-white text-[2.5vw] bg-blue-700 md:text-[16px] rounded-[15px] w-[14vw] md:w-[100px] justify-self-center hover:cursor-pointer"
+                            
+                            onClick={() => {
+                              handleEdit();
+                            }}
+                          >
+                            Edit
+                          </button>
+                          <div className="flex flex-row">
+                        
+                        
+                          <p className="mr-[1vw]">Current</p>
+                            <p className="text-red-500 self-center mr-[3vw]">{items[orderIndex].quantity}</p>
+                        <p>New Qty</p>
+                        
+                      
                       <input
+                        min="0"
+                        className=" ml-[2vw] pl-1 text-[3vw] max-h-[40%] md:text-[16px] w-[10vw] md:w-[180px]  focus:border-blue-200"
                         type="number"
-                        className="my-2 border-[2px] px-2 max-w-[250px] border-blue-200 rounded-[5px]"
-                        value={newPrice}
-                        onChange={(e) => setNewPrice(e.currentTarget.value)}
-                        placeholder="New Price..."
-                      ></input>
+                        value={quantity}
+                        onChange={(e) => {
+                          console.log("HERE",e.currentTarget.value)
+                          if(e.currentTarget.value=="-")
+                          {
+                            c
+                            alert("Cannot enter a negative value")
+                          }
+                          else
+                          setQuantity(e.currentTarget.value);
+                        }}
+                      />
                     </div>
-                    <div>
-                      <button
-                        className="rounded-[24px] mx-2 my-2 p-2  bg-gray-100"
-                        onClick={() => {
-                          setIsUpdate(false);
-                          setUpdateIndex(-1);
-                        }}
-                      >
-                        Cancel
-                      </button>
-                      <button
                         
-                        className="rounded-[24px] mx-2 my-2 p-2 bg-green-400"
-                        onClick={() => {
-                          handleUpdate();
-                        }}
-                      >
-                        Update
-                      </button>
+                      </div>
                     </div>
                   </div>
                 );
@@ -189,61 +212,70 @@ const BillGenerator = ({ accessToken, fetchPurchases }) => {
               </button>
             )}
           </div>
-          <div className="flex flex-row items-center">
-            <div className="flex flex-col">
-              <label>
-                <sup>
-                  Select Item:{" "}
-                  {selectedIndex !== -1 && selectedIndex < rateList.length
-                    ? rateList[selectedIndex].name +
-                      "(@" +
-                      rateList[selectedIndex].price +
-                      ")"
-                    : ""}
-                </sup>
-              </label>
-              <select
-                value={selectedIndex}
-                onChange={(e) => {
-                  console.log("ANOTHER", e.currentTarget.value);
-                  setSelectedIndex(e.currentTarget.value);
-                }}
-                className="appearance-none w-[md:w-[200px] text-[3vw] md:text-[16px] border-[1px] p-2 border-blue-100 rounded-[10px] focus:border-blue-200"
-              >
-                {rateList &&
-                  rateList.map((item, index) => {
-                    return (
-                      <option key={index} value={index}>
-                        {item.name}
-                      </option>
-                    );
-                  })}
-                <option disabled value={rateList.length}>
-                  Select Item...
-                </option>
-              </select>
-            </div>
-            <div className="ml-4 flex flex-col">
-              <label>
-                <sup>Quantity</sup>
-              </label>
-              <input
-                className="border-[1px]  text-[3vw] md:text-[16px] border-blue-100 p-2 rounded-[10px] w-[14vw] md:w-[180px] max-w-[60px] focus:border-blue-200"
-                type="number"
-                value={quantity}
-                onChange={(e) => {
-                  setQuantity(e.currentTarget.value);
+          {!isEdit && (
+            <div className="flex flex-row items-center">
+              <div className="flex flex-col">
+                <label>
+                  <sup>
+                    Select Item:{" "}
+                    {selectedIndex !== -1 && selectedIndex < rateList.length
+                      ? rateList[selectedIndex].name +
+                        "(@" +
+                        rateList[selectedIndex].price +
+                        ")"
+                      : ""}
+                  </sup>
+                </label>
+                <select
+                  value={selectedIndex}
+                  onChange={(e) => {
+                    console.log("ANOTHER", e.currentTarget.value);
+                    setSelectedIndex(e.currentTarget.value);
+                  }}
+                  className="appearance-none w-[md:w-[200px] text-[3vw] md:text-[16px] border-[1px] p-2 border-blue-100 rounded-[10px] focus:border-blue-200"
+                >
+                  {rateList &&
+                    rateList.map((item, index) => {
+                      return (
+                        <option key={index} value={index}>
+                          {item.name}
+                        </option>
+                      );
+                    })}
+                  <option disabled value={rateList.length}>
+                    Select Item...
+                  </option>
+                </select>
+              </div>
+              <div className="ml-4 flex flex-col">
+                <label>
+                  <sup>Quantity</sup>
+                </label>
+                <input
+                min={0}
+                  className="border-[1px]  text-[3vw] md:text-[16px] border-blue-100 p-2 rounded-[10px] w-[14vw] md:w-[180px] max-w-[60px] focus:border-blue-200"
+                  type="number"
+                  value={quantity}
+                  onChange={(e) => {
+                    console.log("ABC",e.currentTarget.value)
+                    if(e.currentTarget.value<0)
+                   { alert("Cannot enter negative value")
+                   setQuantity("")
+                  }
+                    else
+                    setQuantity(e.currentTarget.value);
+                  }}
+                />
+              </div>
+              <AddIcon
+                className="ml-4 border-1 rounded-[5px] mt-4 md:w-[100px] hover:cursor-pointer"
+                boxSize={6}
+                onClick={() => {
+                  handleAdd();
                 }}
               />
             </div>
-            <AddIcon
-              className="ml-4 border-1 rounded-[5px] mt-4 md:w-[100px] hover:cursor-pointer"
-              boxSize={6}
-              onClick={() => {
-                handleAdd();
-              }}
-            />
-          </div>
+          )}
         </div>
       </div>
     </>

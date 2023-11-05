@@ -2,9 +2,9 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import { useEffect, useState } from "react";
 import { getRates } from "@/frontend-services/rates";
-import { AddIcon } from "@chakra-ui/icons";
+import { AddIcon, Icon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
-
+import {FiLogOut} from "react-icons/fi"
 const inter = Inter({ subsets: ["latin"] });
 
 const menu = {
@@ -14,11 +14,18 @@ const menu = {
   
 };
 export const NavBar = () => {
+
+  
   const router = useRouter();
 
+  const handleLogout=()=>{
+    localStorage.setItem("accessToken","")
+    router.replace("/")
+  }
   return (
-    <>
-      <div className="flex flex-row bg-amber-400 w-full h-[10vh] justify-center items-center">
+  
+      <div className="flex flex-row bg-amber-400 w-[100%] h-[10vh] justify-center items-center">
+        <div className="flex flex-row w-full justify-center">
         {Object.keys(menu).map((item, index) => {
           return (
             <div
@@ -31,8 +38,9 @@ export const NavBar = () => {
               {item}
             </div>
           );
-        })}
+        })}</div>
+        <div className="flex justify-self-end right w-fit mr-[2vw]"><Icon boxSize={"4vw"} onClick={()=>{handleLogout()}} as={FiLogOut}></Icon></div>
       </div>
-    </>
+    
   );
 };

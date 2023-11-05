@@ -23,28 +23,46 @@ export default async function handler(req, res) {
     if (!data) res.status(200).json({ message: "NotFound" });
     return res.status(200).json({ message: "Data Received", data: data });
   } else if (req.method === "PUT") {
-    const { item,name } = req.body;
+    const { item, name } = req.body;
     console.log("ITEM", item);
-    const dat = await db.collection("Purchase").findOne({_id:object})
-    console.log("DAT",dat)
-    const data = await db
-      .collection("Purchase")
-      .updateOne(
-        { _id: object },
-        {
-          $set: {
-            "items.$[elem].quantity": item.newQuant,
-            "items.$[elem].price": item.newPrice,
-            "items.$[elem].amount":item.newQuant*item.newPrice,
-            "items.$[elem].editedBy":username,
-          },
-          $push:{
-            "item.$[elem].history":dat
-          }
+    const dat = await db.collection("Purchase").findOne({ _id: object });
+    console.log("DAT", dat);
+    const toUpdate = dat.items.filter((element) => {
+      console.log("ELEMENT", element);
+      console.log
+      return element.name === name;
+    });
+
+    console.log("HISTORYLESS", toUpdate);
+    const updateData=toUpdate[0]
+    delete updateData.history;
+    delete updateData.createdBy;
+    const difference = (item.newQuant*item.newPrice)-updateData.amount;
+    const date = new Date();
+    const timestamp = date.getTime();
+    updateData.newPrice=item.newPrice;
+    updateData.newQuant=item.newQuant;
+    updateData.newAmount=item.newPrice*item.newQuant;
+    updateData.timestamp=Math.floor(timestamp/1000);
+    updateData.editedBy=username;
+    
+    const data = await db.collection("Purchase").updateOne(
+      { _id: object },
+      {
+        $set: {
+          "total":dat.total+difference,
+          "items.$[elem].quantity": item.newQuant,
+          "items.$[elem].price": item.newPrice,
+          "items.$[elem].amount": item.newQuant * item.newPrice,
+          "items.$[elem].editedBy": username,
         },
-        { arrayFilters: [{ "elem.name": name }] }
-      );
-      console.log("DATA",data)
+        $push: {
+          "items.$[elem].history": updateData,
+        },
+      },
+      { arrayFilters: [{ "elem.name": name }] }
+    );
+    console.log("DATA", data);
     return res.status(200).json({ message: "Updated" });
   } else return res.status(401).json({ message: "Unauthorized Method" });
 }
