@@ -5,10 +5,11 @@ import { getRates } from "@/frontend-services/rates";
 import { AddIcon, EditIcon } from "@chakra-ui/icons";
 import { addPurchase } from "@/frontend-services/purchases";
 import useDimensions from "../hooks/useDimensions";
+import { useToast } from "@chakra-ui/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const BillGenerator = ({ accessToken, fetchPurchases }) => {
+const BillGenerator = ({ accessToken, fetchPurchases,onClose }) => {
   const [items, setItems] = useState([]);
   const dimensions = useDimensions();
   const [rateList, setRateList] = useState([]);
@@ -16,6 +17,7 @@ const BillGenerator = ({ accessToken, fetchPurchases }) => {
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [orderIndex, setOrderIndex] = useState(-1);
   const [isEdit, setIsEdit] = useState(false);
+  const toast = useToast();
   console.log("SELECTED IS", selectedIndex);
   console.log("RATELIST", rateList, items);
 
@@ -73,9 +75,26 @@ const BillGenerator = ({ accessToken, fetchPurchases }) => {
   const addToDB = async () => {
     const data = await addPurchase(accessToken, items);
     if (data.status === 200) {
+      toast({
+        title: 'Success ',
+        description: data.message,
+        status: 'success',
+        duration: 4000,
+        isClosable: true,
+      })
       console.log("RES", await data.json());
       setItems([]);
       fetchPurchases(accessToken);
+      onClose();
+    }
+    else{
+      toast({
+        title: 'Failure ',
+        description: data.message,
+        status: 'error',
+        duration: 4000,
+        isClosable: true,
+      })
     }
   };
   console.log("ITEMS", items);

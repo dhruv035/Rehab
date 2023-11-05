@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { verifyToken } from "../../../frontend-services/auth";
 import { NavBar } from "@/components/Navbar/NavBar";
 import { getPurchase,updatePurchase } from "@/frontend-services/purchases";
+import { useToast } from "@chakra-ui/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,6 +15,7 @@ export default function Home() {
   const [purchase, setPurchase] = useState({});
   const [newPrice, setNewPrice] = useState("");
   const [newQuant, setNewQuant] = useState("");
+  const toast = useToast();
   const router = useRouter();
   const initialise = async () => {
     let status = 0;
@@ -55,7 +57,28 @@ export default function Home() {
     const data = await updatePurchase(accessToken,router.query.id,purchase.items[updateIndex].name,{newPrice,newQuant})
     if(data.status===200)
     {
-        
+      const inner=await data.json();
+      console.log("INNER",inner)
+      toast({
+        title: 'Success ',
+        description: inner.message,
+        status: 'success',
+        duration: 4000,
+        isClosable: true,
+      })
+      fetchPurchase();
+      await fetchPurchase();
+      setIsUpdate(false);
+      setUpdateIndex(-1);
+    }
+    else{
+      toast({
+        title: 'Failure ',
+        description: data.message,
+        status: 'error',
+        duration: 4000,
+        isClosable: true,
+      })
     }
     
   };

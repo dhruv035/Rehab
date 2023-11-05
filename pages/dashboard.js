@@ -13,6 +13,7 @@ import {
   ModalCloseButton,
   ModalFooter,
   Button,
+  useToast,
 } from "@chakra-ui/react";
 import BillGenerator from "@/components/Purchases/BillGenerate";
 import { getPurchases } from "../frontend-services/purchases";
@@ -22,6 +23,8 @@ import { Purchases } from "@/components/Purchases/Purchases";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+
+  const toast = useToast();
   const [accessToken, setAccessToken] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [purchases, setPurchases] = useState([]);
@@ -64,8 +67,16 @@ export default function Home() {
     if (token.length) {
       const checkData = await verifyToken(token);
       if (checkData.status === 200) {
+       
         setAccessToken(token);
       } else {
+        toast({
+          title: 'Token Error',
+          description: object.message,
+          status: 'error',
+          duration: 4000,
+          isClosable: true,
+        })
         router.push("/");
       }
     } else router.push("/");
@@ -109,7 +120,7 @@ export default function Home() {
             <Button colorScheme="blue" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button variant="ghost">Secondary Action</Button>
+           
           </ModalFooter>
         </ModalContent>
       </Modal>
