@@ -150,12 +150,14 @@ export default function Page() {
                       >
                         <div className="flex self-center py-2  w-[16vw] mr-4 flex-col">
                           <sup className="">{isMobile?"":"Name:"} {item.name}</sup>
-                          <input
+                          <textarea
                             value={newName}
-                            className="my-2 border-[2px] px-2  max-w-[250px] border-blue-200 rounded-[5px]"
+                            rows={2}
+                            
+                            className="my-2 border-[2px] px-1 md:h-auto max-w-[250px] border-blue-200 rounded-[5px]"
                             onChange={(e) => setNewName(e.currentTarget.value)}
-                            placeholder="Enter New Name..."
-                          ></input>
+                            placeholder="New Name..."
+                          ></textarea>
                            
                         </div>
                         <div className="flex self-center py-2 w-[16vw] mr-4 flex-col">
@@ -165,7 +167,7 @@ export default function Page() {
                             className="my-2 border-[2px] px-2 max-w-[250px] border-blue-200 rounded-[5px]"
                             value={newPrice}
                             onChange={(e) => setNewPrice(e.currentTarget.value)}
-                            placeholder="Enter New Price..."
+                            placeholder="New Price..."
                           ></input>
                         </div>
                         <div>
