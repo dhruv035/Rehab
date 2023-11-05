@@ -1,10 +1,12 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import { SettingsIcon } from "@chakra-ui/icons";
+import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const Rates = ({ rates }) => {
+  const router = useRouter()
   console.log("RATES", rates);
   return (
     <div className="flex max-w-[100%] flex-col items-center">
@@ -16,7 +18,7 @@ export const Rates = ({ rates }) => {
                 className="border-1 mx-4 rounded-[5px] mt-4 w-[100px] hover:cursor-pointer"
                 boxSize={3}
                 onClick={() => {
-                  
+                  router.push("/rates")
                 }}
               />
             </div>{" "}

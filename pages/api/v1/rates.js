@@ -13,7 +13,6 @@ export default async function handler(req, res) {
   const { username } = validity.payload;
   const client = await clientPromise;
   const db = client.db("Bar");
-  console.log("Collection");
   if (req.method === "GET") {
     const data = await db.collection("Rates")
       .find({})
@@ -22,28 +21,23 @@ export default async function handler(req, res) {
     return res.status(200).json({ message: "Rates received", data: data });
   } else if (req.method === "POST") {
     const { items } = req.body;
-    console.log("Items", items);
 
     const upate = await db.collection("Rates").insertMany(items);
 
 
-    console.log("{ROMISS",upate)
 
    
     return res.status(200).json({ message: "Added new Items" });
   } else if (req.method === "PUT") {
     const { name, price,newName } = req.body;
-    console.log("NAME,BODY",name,price)
     const update = await db
       .collection("Rates")
       .updateOne(
         { name: name },
         { $set: { price: price, entryBy: username,name:newName } },
       );
-      console.log("UPDATED",update)
     return res.status(200).json({ message: "Price Updated" });
   } else {
-    console.log("HERE");
     return res.status(401).json({ message: "Unauthorized Method" });
   }
 }

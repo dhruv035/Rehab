@@ -8,6 +8,6 @@ export default async function handler(req, res) {
   if (!validity.authorized)
     return res.status(401).json({ message: validity.message });
   console.log(validity);
-  return res.status(200).json({message:"Verified"})
+  return res.status(200).json({message:"Verified"});
   
 }

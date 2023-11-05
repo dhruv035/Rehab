@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     const {username,password} = req.body;
     const db = await client.db("Bar")
     const {hash,salt}= getPasswordHash(password);
-    const data = await db.collection("User").insertOne({username:username,hash:hash,salt:salt,enabled:false},(err,res)=>{
+    const data = await db.collection("User").insertOne({username:username,hash:hash,salt:salt,enabled:false,role:"member"},(err,res)=>{
         if(err)throw err
     })
     return res.status(200).json({message:"User Created"})

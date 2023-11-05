@@ -49,6 +49,8 @@ export default function Page() {
   const initialise = async () => {
     const token = localStorage.getItem("accessToken");
     console.log("token", token);
+    if(!token)
+    return
     if (token.length) {
       const checkData = await verifyToken(token);
       if (checkData.status === 200) {

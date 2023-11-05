@@ -96,7 +96,7 @@ export default function Home() {
       <Modal size={"3xl"} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent className="min-h-[600px] w-[60vw]">
-          <ModalHeader>Purchase Order</ModalHeader>
+          <ModalHeader alignSelf={"center"} >Purchase Order</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <BillGenerator

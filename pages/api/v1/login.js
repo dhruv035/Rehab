@@ -21,6 +21,6 @@ export default async function handler(req, res) {
     console.log("DATA",data)
   if (!verifyPassword(user, password))
     return res.status(401).json({ message: "Authentication Failed" });
-  const accessToken = getToken({ username: username });
+  const accessToken = getToken({ username: username,role:user.role });
   return res.status(200).json({ message: "Authenticated", token: accessToken });
 }

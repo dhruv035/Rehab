@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
-import { verifyToken } from "../../frontend-services/auth";
+import { verifyToken } from "../../../frontend-services/auth";
 import { NavBar } from "@/components/Navbar/NavBar";
 import { getPurchase,updatePurchase } from "@/frontend-services/purchases";
 

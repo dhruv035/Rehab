@@ -6,9 +6,14 @@ const useDimensions = () => {
   }); // <-- don't invoke here
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
+    let isMobile=false;
+    if(width<=768)
+    isMobile=true;
+
     return {
       width,
       height,
+      isMobile,
     };
   }
   useEffect(() => {

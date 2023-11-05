@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   if (!validity.authorized)
     return res.status(401).json({ message: validity.message });
   console.log(validity);
-  const { username } = validity.payload;
+  const { username,role } = validity.payload;
   const client = await clientPromise;
   const db = await client.db("Bar");
   const { purchaseId } = req.query;
@@ -21,26 +21,6 @@ export default async function handler(req, res) {
     const data = await db.collection("Purchase").findOne({ _id: object });
     console.log("DATA", data);
     if (!data) res.status(200).json({ message: "NotFound" });
-    return res.status(200).json({ message: "Data Received", data: data });
-  } else if (req.method === "PUT") {
-    const { item,name } = req.body;
-    console.log("ITEM", item);
-    const dat = await db.collection("Purchase").findOne({_id:object})
-    console.log("DAT",dat)
-    const data = await db
-      .collection("Purchase")
-      .updateOne(
-        { _id: object },
-        {
-          $set: {
-            "items.$[elem].quantity": item.newQuant,
-            "items.$[elem].price": item.newPrice,
-            "items.$[elem].amount":item.newQuant*item.newPrice,
-          },
-        },
-        { arrayFilters: [{ "elem.name": name }] }
-      );
-      console.log("DATA",data)
-    return res.status(200).json({ message: "Updated" });
-  } else return res.status(401).json({ message: "Unauthorized Method" });
+    return res.status(200).json({ message: "History Received", data: data.history });
+  }else return res.status(401).json({ message: "Unauthorized Method" });
 }

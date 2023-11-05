@@ -8,9 +8,10 @@ import { useRouter } from "next/router";
 const inter = Inter({ subsets: ["latin"] });
 
 const menu = {
+  Dashboard: "/dashboard",
   Rates: "/rates",
   Purchases: "/history",
-  Dashboard: "/dashboard",
+  
 };
 export const NavBar = () => {
   const router = useRouter();

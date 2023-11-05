@@ -1,5 +1,5 @@
 export const getPurchases = async (accessToken) => {
-    const data = await fetch(process.env.NEXT_PUBLIC_API+"/purchase",{
+    const data = await fetch(process.env.NEXT_PUBLIC_API+"/purchases",{
       method:"GET",
       headers:{
           "Authorization":`Bearer ${accessToken}`
@@ -12,7 +12,7 @@ export const getPurchases = async (accessToken) => {
     const date = new Date();
     const timestamp = date.getTime();
     console.log("Date",date.toLocaleDateString());
-    const data = await fetch(process.env.NEXT_PUBLIC_API+"/purchase",{
+    const data = await fetch(process.env.NEXT_PUBLIC_API+"/purchases",{
       method:"POST",
       headers:{
           "Authorization":`Bearer ${accessToken}`,
