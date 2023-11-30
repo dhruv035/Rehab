@@ -6,7 +6,6 @@ export default async function handler(req, res) {
 
   const token = await getAuthToken(req);
   const validity = verifyToken(token);
-  console.log("vValidity", validity);
   if (!validity.authorized)
     return res.status(401).json({ message: validity.message });
   console.log(validity);
@@ -24,13 +23,13 @@ export default async function handler(req, res) {
           const data = await db
             .collection("Rates")
             .findOne({ name: item.name });
-          console.log("DATA", data);
           total += item.quantity * data.price;
           const items = {
             name: data.name,
             quantity: item.quantity,
             price: data.price,
             amount: item.quantity * data.price,
+            units:data.units
           };
           resolve({
             ...items,
@@ -41,12 +40,31 @@ export default async function handler(req, res) {
       })
     );
 
-    const update = await db
+    await db
       .collection("Purchase")
-      .insertOne({ date: date, items: entries, total: total,createdBy:username }, (err, res) => {
-        if (err) throw err;
-        return res;
-      });
+      .insertOne(
+        { date: date, items: entries, total: total, createdBy: username },
+        (err, res) => {
+          if (err) throw err;
+          return res;
+        }
+      );
+
+    const inventoryUpdate = await Promise.all(
+      items.map((item) => {
+        return db
+          .collection("Inventory")
+          .updateOne(
+            { name: item.name },
+            { $inc: { quantity: Number(item.quantity*item.units) } },
+            { upsert: true },
+            (err, res) => {
+              if (err) throw err;
+              return res;
+            }
+          );
+      })
+    );
     return res.status(200).json({ message: "Purchase Recorded" });
   }
 

@@ -19,21 +19,15 @@ export default async function handler(req, res) {
     console.log("ID", purchaseId, req.query);
 
     const data = await db.collection("Purchase").findOne({ _id: object });
-    console.log("DATA", data);
     if (!data) res.status(200).json({ message: "NotFound" });
     return res.status(200).json({ message: "Data Received", data: data });
   } else if (req.method === "PUT") {
     const { item, name } = req.body;
-    console.log("ITEM", item);
     const dat = await db.collection("Purchase").findOne({ _id: object });
-    console.log("DAT", dat);
     const toUpdate = dat.items.filter((element) => {
-      console.log("ELEMENT", element);
       console.log
       return element.name === name;
     });
-
-    console.log("HISTORYLESS", toUpdate);
     const updateData=toUpdate[0]
     delete updateData.history;
     delete updateData.createdBy;

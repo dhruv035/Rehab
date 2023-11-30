@@ -2,7 +2,6 @@ import clientPromise from "@/backend-services/database";
 import { getAuthToken, verifyToken } from "@/backend-services/auth";
 export default async function handler(req, res) {
   if (req.method === "OPTIONS") {
-    console.log("CAMEHERE");
     return res.status(200).send("OK");
   }
   const token = await getAuthToken(req);
@@ -22,19 +21,19 @@ export default async function handler(req, res) {
   } else if (req.method === "POST") {
     const { items } = req.body;
 
-    const upate = await db.collection("Rates").insertMany(items);
+    const update = await db.collection("Rates").insertMany(items);
 
 
 
    
     return res.status(200).json({ message: "Added new Items" });
   } else if (req.method === "PUT") {
-    const { name, price,newName } = req.body;
+    const { name, price,newName, units } = req.body;
     const update = await db
       .collection("Rates")
       .updateOne(
         { name: name },
-        { $set: { price: price, entryBy: username,name:newName } },
+        { $set: { price: price, entryBy: username,name:newName, units:units } },
       );
     return res.status(200).json({ message: "Price Updated" });
   } else {

@@ -14,7 +14,7 @@ export const getPasswordHash = function(password) {
   }
 export const getToken = (payload) => {
   console.log("PAYLOAD",payload)
-  const token = jwt.sign(payload, process.env.JWT_KEY,{expiresIn:60*60*8});
+  const token = jwt.sign(payload, process.env.JWT_KEY);
   return token;
 };
 
